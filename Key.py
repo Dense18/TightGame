@@ -10,4 +10,12 @@ class Key():
         self.color_press = color_press
         self.key = key
 
+        self.isPressed = False
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
+    
+    def set_pressed(self, flag):
+        self.isPressed = flag
+    
+    def get_colour(self):
+        return self.color_press if self.isPressed else self.color_initial
+        
