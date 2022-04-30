@@ -1,13 +1,13 @@
 # TightGame
 
-## 1 background story
+# 1. background story
 
 You are a professional bolt tightener. One day, you enter an amateur bolt tightening competition. To hide your identity, you must follow your opponent’s move.  Do not tighten it too fast nor too slow, make it a tight game 
 
 
 # 2. Instruction
 
-# 2.1 pygame
+## 2.1 pygame
 1. Prior to running the program, it is essential to have pygame installed in the user's computer.
 2. If pygame has not been installed below are sevral ways to install it (different computer might use different method). Type one of the following in command prompt.
     A. pip install pygame
@@ -16,7 +16,7 @@ You are a professional bolt tightener. One day, you enter an amateur bolt tighte
     D. -m pip3 install pygame
 3. If command prompt outputs "Requirement already satisfied: pygame in c:\users\", it means pygame has been installed.
 
-# 2.2 How to operate the program
+## 2.2 How to operate the program
 1. Type "py main.py" in termninal.
 2. The first menu is the main menu, to go to the next screen, choose on of the option.
 3. Press "PLAY" to play the game. Instruction to play the game are the following:
