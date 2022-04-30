@@ -171,7 +171,13 @@ def draw_window(rotation, keyBox):
             WIN.blit(COUNTER_CLOCKWISE, (elem[0], elem[1]))
     text="lives: "+str(lives)
     draw_text = pygame.font.SysFont('comicsans', 40).render(text, 1, (0,0,0))
+    you_text = pygame.font.SysFont('comicsans', 40).render("you", 1, (0,0,0))
+    opp_text = pygame.font.SysFont('comicsans', 40).render("opponent", 1, (0,0,0))
+
     WIN.blit(draw_text, (0,0))
+    WIN.blit(you_text, (275,50))
+    WIN.blit(opp_text, (600,50))
+
     pygame.display.update()
 
 def draw_wrench(rotation):
