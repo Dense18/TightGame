@@ -42,6 +42,8 @@ game_tick = 0
 
 song_data = []
 song_data_index = 0
+note_popped=0
+max_num_of_note=18
 note_list = []
 lives=4
 iteration=1
@@ -75,8 +77,21 @@ def draw_wrench(rotation):
 def draw_lose():
     WIN.fill((255,255,200))
 
-    text="it's no longer a tight game :( \n iteration: "+str(iteration)
-    draw_text = pygame.font.SysFont('comicsans', 40).render(text, 1, (0,0,0))
+    text="it's no longer a tight game :(."
+    draw_text = pygame.font.SysFont('comicsans', 28).render(text, 1, (0,0,0))
+    
+    lives_text="lives: "+str(lives)
+    draw_lives_text = pygame.font.SysFont('comicsans', 40).render(lives_text, 1, (0,0,0))
+    WIN.blit(draw_lives_text, (0,0))
+    WIN.blit(draw_text, (WIDTH/2 - draw_text.get_width() /2, HEIGHT/2 - draw_text.get_height()/2))
+    pygame.display.update()
+    pygame.time.delay(5000)
+
+def draw_win():
+    WIN.fill((255,255,200))
+
+    text="you finished at the same time, it is indeed a tight game ;)"
+    draw_text = pygame.font.SysFont('comicsans', 28).render(text, 1, (0,0,0))
     
     lives_text="lives: "+str(lives)
     draw_lives_text = pygame.font.SysFont('comicsans', 40).render(lives_text, 1, (0,0,0))
@@ -90,6 +105,16 @@ def check_lives():
     if lives<=0:
         draw_lose()
         return 1
+def check_song():
+    global note_list
+    global song_data_index
+    global max_num_of_note
+
+    if note_popped==max_num_of_note:
+        MUSIC_SONG.fadeout(5000)
+        draw_win()
+        return 1
+
 
 def main():
     run = True
@@ -122,7 +147,9 @@ def main():
                 if event.key in keyBox.key:
                     keyBox.set_pressed(False)
         if check_lives()  :
-            break    
+            break   
+        if  check_song():
+            break
         update_tick()
         draw_window(rotation, keyBox)
 
@@ -135,6 +162,7 @@ def main():
 def update_song():
     global lives
     global song_data_index
+    global note_popped
 
     if (song_data and song_data_index < len(song_data)):
         song = song_data[song_data_index]
@@ -151,6 +179,7 @@ def update_song():
     if len(note_list)>0:
         if note_list[0][0] <= keyBox.getX()- keyBox.getWidth():
             note_list.pop(0)
+            note_popped+=1
             lives-=1
 
 
@@ -174,6 +203,7 @@ def update_tick():
 
 def handle_collision(key):
     global lives
+    global note_popped
     if (len(note_list) > 0):
         print("note x :" + str(note_list[0][0]))
         print("key x left :" + str(keyBox.getX()))
@@ -182,6 +212,7 @@ def handle_collision(key):
             print("Hi")
             if (note_list[0][2].getKey() == key):
                 note_list.pop(0)
+                note_popped+=1
                 return 1
     lives-=1
     return 0
