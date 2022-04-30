@@ -36,6 +36,7 @@ NOTE_HEIGHT = 45
 NOTE_SPEED = 3
 
 MUSIC_SONG = pygame.mixer.Sound("Songs/Rockefeller Street (Nightcore).mp3")
+KEYHIT_SOUND = pygame.mixer.Sound("Asset/drum-hitnormal.wav")
 clock = pygame.time.Clock()
 
 start_tick =0
@@ -247,10 +248,13 @@ def game():
                 if event.key == pygame.K_ESCAPE:
                     break
                 if event.key == pygame.K_LEFT:
+                    KEYHIT_SOUND.play()
                     rotation -= handle_collision(pygame.K_LEFT) * 10
                 if event.key == pygame.K_RIGHT:
+                    KEYHIT_SOUND.play()
                     rotation += handle_collision(pygame.K_RIGHT) * 10
                 if event.key in keyBox.key:
+                    KEYHIT_SOUND.play()
                     keyBox.set_pressed(True)
             
             if event.type == pygame.KEYUP:
