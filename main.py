@@ -47,7 +47,8 @@ note_popped=0
 max_num_of_note= 131
 note_list = []
 lives=4
-iteration=1
+
+click = False
 
 keyBox = Key(WIDTH//2 - KEYBOX_WIDTH//2,475, KEYBOX_WIDTH, KEYBOX_HEIGHT, RED, SHADOW_RED, [pygame.K_LEFT, pygame.K_RIGHT])
 
@@ -144,9 +145,9 @@ def help():
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    menu()
+                    pygame.quit()
             if event.type == pygame.QUIT:
-                run = False
+                pygame.quit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     click = True
@@ -240,7 +241,7 @@ def game():
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                run = False
+                pygame.quit()
             
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
