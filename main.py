@@ -4,6 +4,7 @@ from time import time
 import pygame
 from settings import *
 import os
+import sys
 from Key import *
 from Note import *
 
@@ -37,7 +38,7 @@ NOTE_SPEED = 3
 MUSIC_SONG = pygame.mixer.Sound("Songs/Rockefeller Street (Nightcore).mp3")
 clock = pygame.time.Clock()
 
-start_tick = pygame.time.get_ticks()
+start_tick =0
 game_tick = 0
 
 song_data = []
@@ -49,6 +50,110 @@ lives=4
 iteration=1
 
 keyBox = Key(WIDTH//2 - KEYBOX_WIDTH//2,475, KEYBOX_WIDTH, KEYBOX_HEIGHT, RED, SHADOW_RED, [pygame.K_LEFT, pygame.K_RIGHT])
+
+
+def main():
+    global start_tick 
+
+    while True:
+ 
+        WIN.fill((255,255,200))
+        mouse_x, mouse_y = pygame.mouse.get_pos()
+ 
+        button_1 = pygame.Rect(350, 350, 200, 50)
+        button_2 = pygame.Rect(350, 500, 200, 50)
+        
+        
+        if button_1.collidepoint((mouse_x, mouse_y)):
+            if click:
+                start_tick = pygame.time.get_ticks()
+                game()
+        if button_2.collidepoint((mouse_x, mouse_y)):
+            if click:
+                help()
+        pygame.draw.rect(WIN, (255, 0, 0), button_1)
+        pygame.draw.rect(WIN, (255, 0, 0), button_2)
+       
+        title_text = pygame.font.SysFont('comicsans', 40).render('THE TIGHT GAME', 1, (0,0,0))
+        WIN.blit(title_text, (WIDTH/2 - title_text.get_width() /2, HEIGHT/4))
+       
+        play_text= pygame.font.SysFont('comicsans', 40).render('PLAY', 1, (0,0,0))
+        WIN.blit(play_text, (WIDTH/2 - play_text.get_width() /2, 340))
+       
+        help_text= pygame.font.SysFont('comicsans', 40).render('HELP', 1, (0,0,0))
+        WIN.blit(help_text, (WIDTH/2 - help_text.get_width() /2, 490))
+       
+        click = False
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    pygame.quit()
+                    sys.exit()
+            if event.type == pygame.QUIT:
+                run = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    click = True
+ 
+        pygame.display.update()
+
+def help():
+    while True:
+ 
+        WIN.fill((255,255,200))
+        mouse_x, mouse_y = pygame.mouse.get_pos()
+ 
+        button_1 = pygame.Rect(100, 500, 200, 50)        
+        
+        if button_1.collidepoint((mouse_x, mouse_y)):
+            if click:
+                main()
+
+        pygame.draw.rect(WIN, (255, 0, 0), button_1)
+       
+        title_text = pygame.font.SysFont('comicsans', 40).render('HELP', 1, (0,0,0))
+        WIN.blit(title_text, (WIDTH/2 - title_text.get_width() /2, HEIGHT/8))
+       
+        play_text= pygame.font.SysFont('comicsans', 40).render('MENU', 1, (0,0,0))
+        WIN.blit(play_text, (200 - play_text.get_width() /2, 490))
+       
+        line_1_text=" You are a professional bolt tightener."
+        line_1 = pygame.font.SysFont('comicsans', 16).render(line_1_text, 1, (0,0,0))
+        WIN.blit(line_1, (WIDTH/2 - line_1.get_width() /2, HEIGHT/4))
+      
+        line_2_text="One day, you enter an amateur bolt tightening competition."
+        line_2 = pygame.font.SysFont('comicsans', 16).render(line_2_text, 1, (0,0,0))
+        WIN.blit(line_2, (WIDTH/2 - line_2.get_width() /2, (HEIGHT/4)+20))
+        
+        line_3_text="To hide your identity, you must follow your opponent’s move."
+        line_3=pygame.font.SysFont('comicsans', 16).render(line_3_text, 1, (0,0,0))
+        WIN.blit(line_3, (WIDTH/2 - line_3.get_width() /2, (HEIGHT/4)+40))
+
+        line_4_text="Do not tighten it too fast nor too slow, make it a tight game "
+        line_4=pygame.font.SysFont('comicsans', 16).render(line_4_text, 1, (0,0,0))
+        WIN.blit(line_4, (WIDTH/2 - line_4.get_width() /2, (HEIGHT/4)+60))
+
+        line_5_text="press left arrow to turn the bolt clockwise and right to turn the arrow counter-clockwise"
+        line_5=pygame.font.SysFont('comicsans', 16).render(line_5_text, 1, (0,0,0))
+        WIN.blit(line_5, (WIDTH/2 - line_5.get_width() /2, (HEIGHT/4)+100))
+
+          
+       
+        click = False
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    menu()
+            if event.type == pygame.QUIT:
+                run = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    click = True
+ 
+        pygame.display.update()
+
+
+
 def draw_window(rotation, keyBox):
     WIN.fill((255,255,200))
     
@@ -90,7 +195,7 @@ def draw_lose():
 def draw_win():
     WIN.fill((255,255,200))
 
-    text="you finished at the same time, it is indeed a tight game ;)"
+    text="It is indeed a tight game ;)"
     draw_text = pygame.font.SysFont('comicsans', 28).render(text, 1, (0,0,0))
     
     lives_text="lives: "+str(lives)
@@ -116,7 +221,7 @@ def check_song():
         return 1
 
 
-def main():
+def game():
     run = True
     MUSIC_SONG.play()
     clock = pygame.time.Clock()
@@ -136,6 +241,8 @@ def main():
                 run = False
             
             if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    break
                 if event.key == pygame.K_LEFT:
                     rotation -= handle_collision(pygame.K_LEFT) * 10
                 if event.key == pygame.K_RIGHT:
@@ -205,11 +312,7 @@ def handle_collision(key):
     global lives
     global note_popped
     if (len(note_list) > 0):
-        print("note x :" + str(note_list[0][0]))
-        print("key x left :" + str(keyBox.getX()))
-        print("key x right :" + str(keyBox.getY()))
         if (note_list[0][0] >= keyBox.getX()-keyBox.getWidth() and note_list[0][0] <= keyBox.getX() + keyBox.getWidth()):
-            print("Hi")
             if (note_list[0][2].getKey() == key):
                 note_list.pop(0)
                 note_popped+=1
