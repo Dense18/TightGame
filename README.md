@@ -1,9 +1,14 @@
 # TightGame
 
-# 1. Background story
+# 1. Background
+
+## 1.1 Background story
 
 You are a professional bolt tightener. One day, you enter an amateur bolt tightening competition. To hide your identity, you must follow your opponent’s move.  Do not tighten it too fast nor too slow, make it a tight game 
 
+## 1.2 Ambiguity
+
+The title of this game is ambiguous because a tight game means a close game, but tight can also mean secure, as in securing a bolt. The objective of this game is both tightening the bolt and the competition.
 
 # 2. Instruction
 
