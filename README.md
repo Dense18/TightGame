@@ -28,7 +28,7 @@ The title of this game is ambiguous because a tight game means a close game, but
 
 ## 2.2 How to operate the program
 1. Type "py main.py" in termninal.
-2. The first menu is the main menu, to go to the next screen, choose on of the option.
+2. The first menu is the main menu, to go to the next screen, choose one of the options.
 3. Press "PLAY" to play the game. Instruction to play the game are the following:
 
     A. Press left or right according to the icon.
