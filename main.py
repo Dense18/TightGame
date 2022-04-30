@@ -140,7 +140,11 @@ def help():
         line_5=pygame.font.SysFont('comicsans', 16).render(line_5_text, 1, (0,0,0))
         WIN.blit(line_5, (WIDTH/2 - line_5.get_width() /2, (HEIGHT/4)+100))
 
-          
+        line_6_text="Song: Rockefeller Street - Nightcore Remix."
+        line_6=pygame.font.SysFont('comicsans', 16).render(line_6_text, 1, (0,0,0))
+        WIN.blit(line_6, (WIDTH/2 - line_6.get_width() /2, (HEIGHT/4)+140))
+
+  
        
         click = False
         for event in pygame.event.get():
