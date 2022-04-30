@@ -71,6 +71,7 @@ def main():
         if button_2.collidepoint((mouse_x, mouse_y)):
             if click:
                 help()
+
         pygame.draw.rect(WIN, (255, 0, 0), button_1)
         pygame.draw.rect(WIN, (255, 0, 0), button_2)
        
@@ -90,7 +91,7 @@ def main():
                     pygame.quit()
                     sys.exit()
             if event.type == pygame.QUIT:
-                run = False
+                pygame.quit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     click = True
@@ -208,8 +209,10 @@ def draw_win():
 def check_lives():
     global lives
     if lives<=0:
+        MUSIC_SONG.fadeout(5000)
         draw_lose()
         return 1
+
 def check_song():
     global note_list
     global song_data_index
@@ -219,7 +222,6 @@ def check_song():
         MUSIC_SONG.fadeout(5000)
         draw_win()
         return 1
-
 
 def game():
     run = True
@@ -253,18 +255,13 @@ def game():
             if event.type == pygame.KEYUP:
                 if event.key in keyBox.key:
                     keyBox.set_pressed(False)
-        if check_lives()  :
+        if check_lives():
             break   
-        if  check_song():
+        if check_song():
             break
         update_tick()
         draw_window(rotation, keyBox)
-
-    pygame.quit()
-
-
-
-
+    reset()
 
 def update_song():
     global lives
@@ -291,8 +288,11 @@ def update_song():
 
 
 def load_song(file):
+    global max_num_of_note
+
     with open(file, "r", encoding='UTF-8') as file:
         song_file_list = file.readlines()
+        max_num_of_note = len(song_file_list)
 
         for song_file in song_file_list:
             time_slot_format = song_file.split("-")[0].strip()
@@ -320,7 +320,23 @@ def handle_collision(key):
     lives-=1
     return 0
 
-    pass
+def reset():
+    global start_tick
+    global game_tick
+    global song_data 
+    global song_data_index 
+    global note_popped
+    global note_list 
+    global lives
+
+    start_tick =0
+    game_tick = 0
+    song_data = []
+    song_data_index = 0
+    note_popped=0
+    note_list = []
+    lives=4
+
 if __name__ == "__main__":
     main()
 
