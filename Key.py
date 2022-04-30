@@ -13,6 +13,18 @@ class Key():
         self.isPressed = False
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
     
+    def getX(self):
+        return self.x
+    
+    def getY(self):
+        return self.y
+     
+    def getWidth(self):
+        return self.width
+    
+    def getHeight(self):
+        return self.height
+        
     def set_pressed(self, flag):
         self.isPressed = flag
     
